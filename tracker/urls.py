@@ -16,13 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from info.views import InfoCreateAPI, InfoRetrieveAPI, IndexView
+from info.views import InfoCreateAPI, InfoRetrieveAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/v1/info/create/', InfoCreateAPI.as_view(), name='info-create-api'),
     path('api/v1/info/', InfoRetrieveAPI.as_view(), name='info-retrieve-api'),
-    path('', IndexView.as_view(), name='index'),
-
 ]

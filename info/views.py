@@ -1,9 +1,7 @@
 from datetime import date
 
 from django.db.models import Count, Avg
-from django.urls import reverse
-from django.views.generic import RedirectView
-from rest_framework.decorators import api_view
+
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -12,11 +10,6 @@ from rest_framework.views import APIView
 
 from info.models import HappinessInfo
 from info.serializers import InfoCreateSerializer, InfoRetrieveSerializer
-
-
-class IndexView(RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse('info-retrieve-api')
 
 
 class InfoCreateAPI(CreateAPIView):
@@ -47,8 +40,6 @@ class InfoRetrieveAPI(APIView):
                 qs = qs.filter(user=self.request.user)
 
             info = qs.values('happiness_level').order_by('happiness_level').annotate(count=Count('happiness_level'))
-            import ipdb
-            ipdb.set_trace()
 
             serializer_data = InfoRetrieveSerializer(info, many=True).data
 

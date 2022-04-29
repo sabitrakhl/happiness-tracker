@@ -23,6 +23,7 @@ Once `pip` has finished downloading the dependencies, execute the following comm
 ```sh
 python manage.py migrate
 ```
+For the simplicity we are using sqlite database for this project.
 
 Then create the superuser:
 ```sh
@@ -45,4 +46,46 @@ $ python manage.py runserver
 
 And navigate to `http://127.0.0.1:8000/admin/` to create the group (team), user and assign the user to group.
 
-For the simplicity we have been using sqlite database 
+
+## APIs
+
+You can access our APIs, directly through the browser, by going to the URLs.
+If you're working through the browser, make sure to login using the control in the top right corner.
+
+### Info Create
+
+Use this API to submit happiness level.
+
+*Parameters*
+```sh
+{
+   "happiness_level": 6
+}
+```
+
+
+```sh
+POST /api/v1/info/create/
+```
+
+### Info Retrieve
+
+Use this API to retrieve happiness level.
+
+```sh
+GET /api/v1/info/
+```
+
+if an authenticated request is made to this API, it returns the statistics of user's team - the number of people at each level of happiness and the average happiness of the user's team.
+
+if an unauthenticated request is made, return the average happiness across all teams.
+
+
+
+## Test
+
+To run the tests, cd into the directory where manage.py is:
+
+```sh
+python manage.py test
+```
